@@ -17,7 +17,6 @@
 # Once you are done with the tests, delete the module. You don't need to put it in your Git repository!
 #
 
-
 ### Note from Tom to examiner: edited some of the tests to accomodate some of my customisations
 
 import os
