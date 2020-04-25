@@ -8,21 +8,26 @@
 	
 	<body>
 	    <div>
-		{% if category %}
-		    <h1>{{ category.name }}</h1>
-			{% if pages %}
-			<ul>
-			    {% for page in pages %}
-				<li><a href="{{ page.url }}">{{ page.title }}</a></li>
-				{% endfor %}
-			</ul>
+			{% if category %}
+				<h1>{{ category.name }}</h1>
+				{% if pages %}
+				<ul>
+					{% for page in pages %}
+					<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+					{% endfor %}
+				</ul>
+				{% else %}
+				<strong>No pages currently in category.</strong>
+				{% endif %}
 			{% else %}
-			<strong>No pages currently in category.</strong>
+				The specified category does not exist.
 			{% endif %}
-		{% else %}
-		    The specified category does not exist.
-		{% endif %}
         </div>
+		
+		<div>
+            <a href="/rango/">Index</a><br /> 
+			<!-- Would have preferred "Back to Index", but this kept failing the test for some reason -->
+		</div>
     </body>
 
 </html>	
