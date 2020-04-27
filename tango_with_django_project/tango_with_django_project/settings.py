@@ -35,7 +35,7 @@ SECRET_KEY = 'zoy9rg=d(e!9c-nsts+!lzc1g2qlwb_b4gu%j0jce6@n6w_kn_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://chocobawm.pythonanywhere.com/']
 
 
 # Application definition
