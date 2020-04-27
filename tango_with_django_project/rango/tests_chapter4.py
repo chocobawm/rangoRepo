@@ -17,9 +17,6 @@
 # Once you are done with the tests, delete the module. You don't need to put it in your Git repository!
 #
 
-
-### Note from Tom to examiner: edited some of the tests to accomodate some of my customisations
-
 import os
 import re
 import importlib
@@ -146,11 +143,11 @@ class Chapter4StaticMediaTests(TestCase):
         """
         does_static_dir_exist = os.path.isdir(self.static_dir)
         does_images_static_dir_exist = os.path.isdir(os.path.join(self.static_dir, 'images'))
-        does_rango_jpg_exist = os.path.isfile(os.path.join(self.static_dir, 'images', 'morgana.png'))
+        does_rango_jpg_exist = os.path.isfile(os.path.join(self.static_dir, 'images', 'rango.jpg'))
         
         self.assertTrue(does_static_dir_exist, f"{FAILURE_HEADER}The static directory was not found in the expected location. Check the instructions in the book, and try again.{FAILURE_FOOTER}")
         self.assertTrue(does_images_static_dir_exist, f"{FAILURE_HEADER}The images subdirectory was not found in your static directory.{FAILURE_FOOTER}")
-        self.assertTrue(does_rango_jpg_exist, f"{FAILURE_HEADER}We couldn't locate the morgana.png image in the /static/images/ directory. If you think you've included the file, make sure to check the file extension. Sometimes, a JPG can have the extension .jpeg. Be careful! It must be .jpg for this test.{FAILURE_FOOTER}")
+        self.assertTrue(does_rango_jpg_exist, f"{FAILURE_HEADER}We couldn't locate the rango.jpg image in the /static/images/ directory. If you think you've included the file, make sure to check the file extension. Sometimes, a JPG can have the extension .jpeg. Be careful! It must be .jpg for this test.{FAILURE_FOOTER}")
     
     def test_does_media_directory_exist(self):
         """
@@ -158,10 +155,10 @@ class Chapter4StaticMediaTests(TestCase):
         Also checks for the presence of cat.jpg.
         """
         does_media_dir_exist = os.path.isdir(self.media_dir)
-        does_cat_jpg_exist = os.path.isfile(os.path.join(self.media_dir, 'cat.png'))
+        does_cat_jpg_exist = os.path.isfile(os.path.join(self.media_dir, 'cat.jpg'))
         
         self.assertTrue(does_media_dir_exist, f"{FAILURE_HEADER}We couldn't find the /media/ directory in the expected location. Make sure it is in your project directory (at the same level as the manage.py module).{FAILURE_FOOTER}")
-        self.assertTrue(does_cat_jpg_exist, f"{FAILURE_HEADER}We couldn't find the cat.png image in /media/. Check the file extension; this is a common pitfall. It should .jpg. Not .png, .gif, or .jpeg!{FAILURE_FOOTER}")
+        self.assertTrue(does_cat_jpg_exist, f"{FAILURE_HEADER}We couldn't find the cat.jpg image in /media/. Check the file extension; this is a common pitfall. It should .jpg. Not .png, .gif, or .jpeg!{FAILURE_FOOTER}")
     
     def test_static_and_media_configuration(self):
         """
@@ -253,13 +250,13 @@ class Chapter4ExerciseTests(TestCase):
         """
         Checks whether the rendered about view has the picture of Rango.
         """
-        required_str = f"<img src=\"{settings.STATIC_URL}images/morgana.png\" alt=\"Picture of Morgana\" />"
-        self.assertTrue(required_str in self.about_response.content.decode(), f"{FAILURE_HEADER}The HTML markup to include the image of Morgana in the about template was not found. It needs to match exactly what we are looking for. Check the book.{FAILURE_FOOTER}")
+        required_str = f"<img src=\"{settings.STATIC_URL}images/rango.jpg\" alt=\"Picture of Rango\" />"
+        self.assertTrue(required_str in self.about_response.content.decode(), f"{FAILURE_HEADER}The HTML markup to include the image of Rango in the about template was not found. It needs to match exactly what we are looking for. Check the book.{FAILURE_FOOTER}")
         
     def test_about_contains_cat(self):
         """
         Checks whether the rendered about view has the picture of a cat.
         We need to be a little bit lenient here as the example above includes a period, and in the exercise instructions, the required alt text is ended with a period. Either with or without is acceptable.
         """
-        required_pattern = f"<img src=\"{settings.MEDIA_URL}cat.png\" alt=\"Picture of a Wild Beast.?\" />"
+        required_pattern = f"<img src=\"{settings.MEDIA_URL}cat.jpg\" alt=\"Picture of a Cat.?\" />"
         self.assertTrue(re.search(required_pattern, self.about_response.content.decode()), f"{FAILURE_HEADER}The HTML markup to include the image of a cat in the about template was not found. It needs to match exactly what we are looking for. Check the book.{FAILURE_FOOTER}")
